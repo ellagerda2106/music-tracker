@@ -59,16 +59,20 @@ input {
 
 /* עיצוב הרקע השחור שמאחורי החלון */
 #infoBox {
-    display: none; /* מתחיל מוסתר */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7); /* רקע חצי שקוף */
-    justify-content: center;
-    align-items: center;
+    width: 100vw;   /* vw זה להשתמש ברוחב המסך המלא */
+    height: 100vh;  /* vw זה להשתמש בגובה המסך המלא */
+    background-color: rgba(0,0,0,0.7);
     z-index: 1000;
+
+    /* המרכוז המושלם */
+    display: none; 
+    justify-content: center; 
+    align-items: center;
+    direction: ltr;
 }
 
 /* עיצוב החלונית הלבנה עצמה */
@@ -76,10 +80,15 @@ input {
     background-color: white;
     padding: 30px;
     border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
     position: relative;
-    max-width: 400px;
-    text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* כפתור ה-X לסגירה */
@@ -94,9 +103,9 @@ input {
 
 .card img {
     width: 150px;      /* רוחב קבוע */
-    height: 150px;     /* גובה קבוע - יוצר ריבוע */
+    height: 150px;     /* גובה קבוע- יוצר ריבוע */
     object-fit: cover; /* חותך את השוליים כדי שהתמונה לא תימרח */
-    border-radius: 10px; /* פינות מעוגלות זה תמיד יפה */
+    border-radius: 10px; /* פינות מעוגלות  */
 }
 
 .modal-content img {
@@ -112,4 +121,33 @@ input {
     color: black;
     margin-bottom: 10px;
     font-size: 24px;
+}
+
+.video-container {
+    margin: 15px 0;
+    border-radius: 10px;
+    overflow: hidden; /* שומר על הפינות המעוגלות של הסרטון */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;     /* מאפשר לכרטיסים לרדת שורה כשנגמר המקום */
+    justify-content: center;
+    gap: 20px;           /* רווח בין הכרטיסים */
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s; 
+    width: 200px;
+}
+
+.card:hover {
+    transform: scale(1.05); /* הכרטיס גדל */
 }
