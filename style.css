@@ -1,24 +1,45 @@
 ol {
-    list-style: decimal;
+    list-style: none;
+    counter-reset: song-counter; 
+    padding: 0;
+    margin: 0 auto;
+    text-align: left;
+    width: 95%;
+    max-width: 500px;
 }
 
-li {
-    background: white;
-    margin: 10px auto;
-    padding: 12px 15px;
-    width: 320px;
-    border-radius: 14px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    font-size: 16px;
+.song-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    direction: ltr; 
+    cursor: grab;
+    position: relative;
 }
 
+.song-card::before {
+    counter-increment: song-counter; /* מעלה את המונה ב-1 בכל שיר */
+    content: counter(song-counter) ". "; /* נקודה לפני*/
+    font-weight: bold;
+    color: #ff4d88; 
+    font-size: 1.1rem;
+    margin-right: 15px; /* רווח בין המספר לבין הכרטיסייה */
+}
+
+/* כשלוחצים ומחזיקים את השיר */
+.song-card:active {
+    cursor: grabbing;
+}
+
+/* האלמנט שנמצא כרגע בגרירה */
 .dragging {
-    opacity: 0.5;
+    opacity: 0.4;
+    border: 2px dashed #ff4d88;
 }
 
 body {
@@ -40,9 +61,12 @@ button {
     background-color: #ff4d88;
     color: white;
     border: none;
-    padding: 7px 12px;
-    border-radius: 10px;
+    padding: 5px 12px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-right: 10px;
 }
 
 button:hover {
@@ -57,25 +81,20 @@ input {
     outline: none;
 }
 
-/* עיצוב הרקע השחור שמאחורי החלון */
 #infoBox {
     display: none; 
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;   /* vw זה להשתמש ברוחב המסך המלא */
-    height: 100vh;  /* vw זה להשתמש בגובה המסך המלא */
+    width: 100vw;   
+    height: 100vh;  
     background-color: rgba(0,0,0,0.7);
-    z-index: 1000;
-
-    /* המרכוז המושלם */
-    display: none; 
+    z-index: 3000;
     justify-content: center; 
     align-items: center;
     direction: ltr;
 }
 
-/* עיצוב החלונית הלבנה עצמה */
 .modal-content {
     background-color: white;
     padding: 30px;
@@ -91,7 +110,6 @@ input {
     text-align: center;
 }
 
-/* כפתור ה-X לסגירה */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -102,17 +120,17 @@ input {
 }
 
 .card img {
-    width: 150px;      /* רוחב קבוע */
-    height: 150px;     /* גובה קבוע- יוצר ריבוע */
-    object-fit: cover; /* חותך את השוליים כדי שהתמונה לא תימרח */
-    border-radius: 10px; /* פינות מעוגלות  */
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+    border-radius: 10px; 
 }
 
 .modal-content img {
-    width: 100%;       /* תופס את כל רוחב החלון הלבן */
-    max-width: 300px;  /* אבל לא יותר מ-300 פיקסלים */
-    height: 200px;     /* גובה קבוע לכל התמונות במודאל */
-    object-fit: cover; /* שומר על פרופורציות בלי לעוות את הפרצופים */
+    width: 100%;       
+    max-width: 300px;  
+    height: 200px;     
+    object-fit: cover; 
     margin: 15px 0;
     border-radius: 8px;
 }
@@ -126,15 +144,15 @@ input {
 .video-container {
     margin: 15px 0;
     border-radius: 10px;
-    overflow: hidden; /* שומר על הפינות המעוגלות של הסרטון */
+    overflow: hidden; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .container {
     display: flex;
-    flex-wrap: wrap;     /* מאפשר לכרטיסים לרדת שורה כשנגמר המקום */
+    flex-wrap: wrap;    
     justify-content: center;
-    gap: 20px;           /* רווח בין הכרטיסים */
+    gap: 20px;          
     padding: 20px;
 }
 
@@ -149,5 +167,328 @@ input {
 }
 
 .card:hover {
-    transform: scale(1.05); /* הכרטיס גדל */
+    transform: scale(1.05); 
+}
+
+.song-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    list-style: none; 
+    direction: ltr; 
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left; 
+    padding-right: 20px; 
+    overflow: hidden; 
+}
+
+.song-info strong {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.song-info span {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.play-btn {
+    text-decoration: none; 
+    background-color: #ff0000; 
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+.play-btn:hover {
+    background-color: #cc0000; 
+}
+
+.song-actions {
+    display: flex;
+    gap: 10px; 
+}
+
+.clear-btn {
+    background-color: #6c757d; 
+    margin-left: 10px;
+}
+.clear-btn:hover {
+    background-color: #5a6268;
+}
+
+/* --- ניווט ומבנה הדפים --- */
+.navbar {
+    background-color: #ff4d88;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+.nav-links button {
+    background: transparent;
+    border: 2px solid white;
+    margin: 0 10px;
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+.nav-links button:hover {
+    background: white;
+    color: #ff4d88;
+}
+
+.hero {
+    background-size: cover;
+    color: white;
+    padding: 60px 20px;
+    margin-bottom: 30px;
+}
+
+.page {
+    display: none;
+}
+
+#home-page {
+    display: block;
+}
+
+.comebacks-container {
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: center;
+    gap: 20px;          
+    padding: 20px;
+}
+
+.comeback-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 250px;
+    overflow: hidden; /* דואג שהתמונה לא תצא מהפינות המעוגלות */
+    transition: transform 0.2s; 
+}
+
+.comeback-card:hover {
+    transform: scale(1.03); 
+}
+
+.comeback-card img {
+    width: 100%;       
+    height: 160px;     
+    object-fit: cover; /* שומר על פרופורציות  */
+}
+
+.comeback-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.comeback-info h3 {
+    margin: 0 0 10px 0;
+    color: #ff4d88 
+    font-size: 1.2rem;
+}
+
+.comebacks-container {
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: center;
+    gap: 20px;          
+    padding: 20px;
+}
+
+.comeback-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 250px;
+    overflow: hidden; /* דואג שהתמונה לא תצא מהפינות המעוגלות */
+    transition: transform 0.2s; 
+}
+
+.comeback-card:hover {
+    transform: scale(1.03); 
+}
+
+.comeback-card img {
+    width: 100%;       
+    height: 160px;     
+    object-fit: cover; /*שומר על פרופורציה */
+}
+
+.comeback-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.comeback-info h3 {
+    margin: 0 0 10px 0;
+    color: #ff4d88;
+    font-size: 1.2rem;
+}
+
+.comeback-info .date {
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.comeback-info .info {
+    margin: 0;
+    color: #666;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* עיצוב כותרות האזורים בדף הקאמבקים */
+.comeback-section-title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.comeback-section-title h1 {
+    color: #ff4d88; 
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.comeback-section-title p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.rec-section-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.rec-section-title h2 {
+    color: #ff4d88; 
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.rec-section-title p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.rec-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+}
+
+.rec-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    width: 300px;
+    padding: 20px;
+    position: relative;
+    border-top: 4px solid #ff4d88; 
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: left;
+}
+
+.rec-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.rec-badge {
+    display: inline-block;
+    background-color: #ff4d88;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.rec-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.15rem;
+    direction: ltr; /* שמות הלהקות והשירים באנגלית ייראו טוב */
+    text-align: left;
+}
+
+.rec-text {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.album-card { 
+    border-top-color: #9333ea; 
+}
+
+.video-card {
+     border-top-color: #ea580c; 
+    }
+
+.rec-header {
+    display: flex;
+    justify-content: space-between; /* דוחף את ה-badge לשמאל ואת הכפתורים לימין, או הפוך */
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.rec-links {
+    display: flex;
+    gap: 6px; /* רווח קטן בין יוטיוב לספוטיפיי */
+}
+
+.btn-link {
+    display: inline-block;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none; /* מבטל את הקו התחתון של הקישור */
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-link:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.yt-btn {
+    background-color: #ff0000;
+}
+
+.sp-btn {
+    background-color: #1DB954;
+}
+
+.rec-card .rec-badge {
+    margin-bottom: 0;
 }

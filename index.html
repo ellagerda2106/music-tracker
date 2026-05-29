@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> music track </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <button onclick="showPage('home-page')">home page</button>
+            <button onclick="showPage('songs-page')">song list</button>
+            <button onclick="showPage('info-page')">artist info</button>
+            <button onclick="showPage('comebacks-page')">comebacks</button>
+            <button onclick="showPage('recommendations-page')">recommendations</button>
+        </div>
+    </nav>
+
+    <section id="home-page" class="page">
+        <header class="hero">
+            <h1>לשים כותרת לאתר</h1>
+            <p>לשים תיאור</p>
+        </header>
+    </section>
+
+    <section id="songs-page" class="page" style="display:none;">
+        <main>
+            <h2>Add Songs</h2>
+            <input type="text" id="songName" placeholder="Song Name">
+            <input type="text" id="artistName" placeholder="Artist Name">
+            <button id="addBtn">Add Song</button>
+            <button onclick="clearAllSongs()" class="clear-btn">delete all</button>
+
+            <h2>My Songs</h2>
+            <ol id="songList"></ol> </main>
+    </section>
+
+    <section id="info-page" class="page" style="display:none;">
+        <h1> artist info </h1>
+
+        <div class="container">
+            <div class="card" onclick="openInfo('skz')">
+                <h3> stray kids </h3>
+             </div>
+
+            <div class="card" onclick="openInfo('p1h')">
+                <h3> p1harmony </h3>
+            </div>
+
+            <div class="card" onclick="openInfo('txt')">
+                <h3> tomorrow X together</h3>
+            </div>
+
+            <div class="card" onclick="openInfo('bnd')">
+                <h3> boynextdoor</h3>
+            </div>
+
+            <div class="card" onclick="openInfo('svt')">
+                <h3> seventeen </h3>
+            </div>
+
+            <div class="card" onclick="openInfo('kfp')">
+                <h3> kickflip </h3>
+            </div>
+
+            <div class="card" onclick="openInfo('lngst')">
+                <h3> lngshot </h3>
+            </div>
+
+            <div class="card" onclick="openInfo('xdh')">
+                <h3> xdinary heroes </h3>
+            </div>
+
+            <div class="card" onclick="openInfo('day6')">
+                <h3> day6 </h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="comebacks-page" class="page" style="display:none">
+        
+        <div class="comeback-section-title">
+            <h1>Recent comebacks</h1>
+        </div>
+
+        <div class="comebacks-container">
+            <div class="comeback-card">
+                <img src="images/top another dimension.jpg" alt="top">
+                <div class="comeback-info">
+                    <h3>T.O.P</h3>
+                    <p class="date">april 3, 2026</p>
+                    <p class="title">ANOTHER DIMENSION</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/kfp kick out.jpg" alt="kfp">
+                <div class="comeback-info">
+                    <h3>kickflip</h3>
+                    <p class="date">april 6, 2026</p>
+                    <p class="title">My First Kick</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/txt thorns.jpg" alt="txt">
+                <div class="comeback-info">
+                    <h3>tomorrow X together</h3>
+                    <p class="date">april 13, 2026</p>
+                    <p class="title">A Moment of Stillness in the Thorns</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/modyssey hooked.jpg" alt="mdsy">
+                <div class="comeback-info">
+                    <h3>modyssey</h3>
+                    <p class="date">april 13, 2026</p>
+                    <p class="title">Got Hooked: An Addictive Symphony</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/xdh dead and.jpg" alt="xdh">
+                <div class="comeback-info">
+                    <h3>xdinary heroes</h3>
+                    <p class="date">april 17, 2026</p>
+                    <p class="title">DEAD AND</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/nct wish ode to love.jpg" alt="nctw">
+                <div class="comeback-info">
+                    <h3>NCT wish</h3>
+                   <p class="date">april 20, 2026</p>
+                   <p class="title">ode to love</p> 
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/&team we on fire.jpg" alt="&team">
+                <div class="comeback-info">
+                    <h3>&team</h3>
+                    <p class="date">april 21, 2026</p>
+                    <p class="title">we on fire</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/nexz mmchk.jpg" alt="nexz">
+                <div class="comeback-info">
+                    <h3>NEXZ</h3>
+                    <p class="date">april 27, 2026</p>
+                    <p class="title">Mmchk</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/cortis green.jpg" alt="cortis">
+                <div class="comeback-info">
+                    <h3>cortis</h3>
+                    <p class="date">may 4, 2026</p>
+                    <p class="title">GREEN GREEN</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/nmixx havy serenade.jpg" alt="nmixx">
+                <div class="comeback-info">
+                    <h3>NMIXX</h3>
+                    <p class="date">may 11, 2026</p>
+                    <p class="title">Heavy Serenade</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/itzy motto.jpg" alt="itzy">
+                <div class="comeback-info">
+                    <h3>ITZY</h3>
+                    <p class="date">may 18, 2026</p>
+                    <p class="title">Motto</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/zb1 ascend.jpg" alt="zb1">
+                <div class="comeback-info">
+                    <h3>ZEROBASEONE</h3>
+                    <p class="date">may 18, 2026</p>
+                    <p class="title">Ascend</p>
+                </div>
+            </div>
+        </div> 
+        
+        <div class="comeback-section-title" style="margin-top: 50px;">
+            <h1>Upcoming comebacks</h1>
+        </div>
+
+        <div class="comebacks-container">
+            <div class="comeback-card">
+                <img src="images/ald1 no school tomorrow.jpg" alt="ald1">
+                <div class="comeback-info">
+                    <h3>ALPHA DRIVE ONE</h3>
+                    <p class="date">may 26, 2026</p>
+                    <p class="title">No School Tomorrow</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/and2ble curiosity.jpg" alt="and2ble">
+                <div class="comeback-info">
+                    <h3>AND2BLE</h3>
+                    <p class="date">may 26, 2026</p>
+                    <p class="title">curiosity</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/xlov i god.jpg" alt="xlov">
+                <div class="comeback-info">
+                    <h3>XLOV</h3>
+                    <p class="date">may 27, 2026</p>
+                    <p class="title">I, god</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/idid fly.jpg" alt="idid">
+                <div class="comeback-info">
+                    <h3>IDID</h3>
+                    <p class="date">may 27, 2026</p>
+                    <p class="title">FLY!</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/ive lucid dream.jpg" alt="ive">
+                <div class="comeback-info">
+                    <h3>IVE</h3>
+                    <p class="date">may 27, 2026</p>
+                    <p class="title">LUCID DREAM</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/aespa lemonade.jpg" alt="aespa">
+                <div class="comeback-info">
+                    <h3>aespa</h3>
+                    <p class="date">may 29,, 2026</p>
+                    <p class="title">LEMONADE</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/meovv bite now.jpg" alt="meovv">
+                <div class="comeback-info">
+                    <h3>MEOVV</h3>
+                    <p class="date">june 1, 2026</p>
+                    <p class="title">BITE ME</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/treasure new wav.jpg" alt="treasure">
+                <div class="comeback-info">
+                    <h3>TREASURE</h3>
+                    <p class="date">june 1, 2026</p>
+                    <p class="title">NEW WAV</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/tripleS assemle.jpg" alt="tripleS">
+                <div class="comeback-info">
+                    <h3>tripleS</h3>
+                    <p class="date">june 1, 2026</p>
+                    <p class="title">ASSEMBLE26 LOVE&POP</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/fifty fifty imperfect.jpg" alt="fifty">
+                <div class="comeback-info">
+                    <h3>FIFTY FIFTY</h3>
+                    <p class="date">june 1, 2026</p>
+                    <p class="title">imperfect-i'mperfect</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/shinee atmos.jpg" alt="shinee">
+                <div class="comeback-info">
+                    <h3>SHINEE</h3>
+                     <p class="date">june 1, 2026</p>
+                    <p class="title">ATOMS</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/nflying in between season.jpg" alt="n.flying">
+                <div class="comeback-info">
+                    <h3>N.FLYING</h3>
+                    <p class="date">june 2, 2026</p>
+                    <p class="title">In Between Seasons</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/bnd home.jpg" alt="bnd">
+                <div class="comeback-info">
+                    <h3>BOYNEXDOOR</h3>
+                    <p class="date">june 8, 2026</p>
+                    <p class="title">HOME</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/rize 11.jpg" alt="riize">
+                <div class="comeback-info">
+                    <h3>RIIZE</h3>
+                    <p class="date">june 15, 2026</p>
+                    <p class="title">||</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/ateez golden hour 5.jpg" alt="ateez">
+                <div class="comeback-info">
+                    <h3>ATEEZ</h3>
+                    <p class="date">june 26, 2026</p>
+                    <p class="title">GOLDEN HOUR: part 5</p>
+                </div>
+            </div>
+
+            <div class="comeback-card">
+                <img src="images/picheolin.jpg" alt="dino">
+                <div class="comeback-info">
+                    <h3>PICHEOLIN (DINO)</h3>
+                    <p class="date">august 3, 2026</p>
+                    <p class="title">BOARD</p>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <section id="recommendations-page" class="page" style="display:none">
+
+        <div class="rec-section-title">
+            <h2>songs</h2>
+            <p class="rec-text">Currently on Repeat</p>
+        </div>
+        
+        <div class="rec-container">
+
+            <div class="rec-card">
+                  <div class="rec-header">
+
+                    <div class="rec-badge" style="background-color: #ff4d88;">song</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=Gt0wRAFpwvg" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/track/4PO2CLAHEtLBDBa8mB9Phw?si=e040340c0681462d" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>Twenty - KickFlip</h3>
+                <p class="rec-text">this song gives me such a nostalgic vibe. Perfectly captures the feeling of youth and freedom.
+                     A pop-rock song with AMAZING vocals</p>
+            </div>
+
+            <div class="rec-card">
+                <div class="rec-header">
+                     <div class="rec-badge" style="background-color: #ff4d88;">song</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=IufpX0FpH5c" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/track/5QCeYdggsd3CtVPtEiMmC2?si=3c19316207674d53" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>Sick of you - can't be blue</h3>
+                <p class="rec-text">the choreo is my anthem. kind of rock-pop-ish vibes. soft emotions hidden behhind
+                    beautiful melodies. The vocals makes every lyric hit harder.
+                </p>
+            </div>
+
+            <div class="rec-card">
+                <div class="rec-header">
+
+                    <div class="rec-badge" style="background-color: #ff4d88;">song</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=ZeNOs_7kqaw" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/track/4dUpvz6olaLXl3YIV3U6Kn?si=e76ab52feddd4b42" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>Voyager - Xdinary heroes</h3>
+                <p class="rec-text">My fav rock band!! A song that feels like chasing something bigger than yourself.
+                    Yhe perfect mix of chaos and emotion. Jooyeon's voice in the choreo scraches my brain.</p>
+            </div>
+
+            <div class="rec-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #ff4d88;">song</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=gIpT5vP5hy4" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/track/2hjaiDsLLBlY68XrgjZk7F?si=cb224ffd7a1944f4" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>Heaven - Taemin</h3>
+                <p class="rec-text">The Michael Jacson of kpop.This guy somehow makes every song feel cinematic.
+                     This song is actually heavenly. will send your ears to their best time of their life!</p>
+            </div>
+        </div>
+
+        <div class="rec-section-title" style="margin-top: 40px">
+            <h2>albums</h2>
+            <p class="rec-text">no-skips masterpieces</p>
+        </div>
+
+        <div class="rec-container">
+
+            <div class="rec-card album-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #9333ea;">Album</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=9moTCYPmBMY&list=PLxA687tYuMWg4GU8xtjkRfadjxVyXPR6m" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/album/71EVZx82GopCyTNRZVkZSk?si=tLowMrGcT5G62Z3WdADoeA" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                 <h3>UNIQUE - P1harmony</h3>
+                 <p class="rec-text">the lore behhind this album is so UNIQUE. each track is different in its own way which i really love.
+                    An album with way too much charisma for one playlist.My favorite song from this album is ICE (VVS), the taki part!!! </p>
+            </div>
+
+            <div class="rec-card album-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #9333ea;">Album</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=DvX-KLIrP60&list=PLxA687tYuMWgwwTzodPNjuZVzWnPdvVEE" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/album/55LBvRI4i4FUUf5dYKVMHk?si=DX4gJiJDSrClgNTZaRbvBw" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>A Moment of Stillness in the Thorns - Tomorrow X Together</h3>
+                <p class="rec-text">TXT proving once again that nobody can understand emotions like they do.
+                    this album feels like water after chewing a gum.every song feels like a different memory.
+                    my favorite song from this album is 21st century romance!
+                </p>
+            </div>
+
+            <div class="rec-card album-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #9333ea;">Album</div>
+
+                    <div class="rec-links">
+                        <a href="https://youtube.com/playlist?list=OLAK5uy_kvognYDvNBhbJO4V4znhSCwNsgm8xZjYc&si=4azs1faqBNSI8nyv" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/album/3IGZmUJql41Q2FSIBweSsz?si=6R4JmK1JQp2_sqg_vDpG7Q" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>HOP -Stray Kids</h3>
+                <p class="rec-text">organized chaos in the best way possible. every track hits differently like
+                    ultra and U in the same album?? Pure adrenaline turned into music. Although my ult bias is han 
+                    and his solo is an absolout masterpiece, my favorite song is As we are by seungmin!</p>
+            </div>
+
+            <div class="rec-card album-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #9333ea;">Album</div>
+
+                    <div class="rec-links">
+                        <a href="https://www.youtube.com/watch?v=J_BB2MGH_hU&list=PLEEZ-PZ3kewtFM9bYeIjkqa1YNoqFLbJh" target="_blank" class="btn-link yt-btn">youtube</a>
+                        <a href="https://open.spotify.com/album/3XzKcbKfLPWSOG7BJbC98O?si=0cRn1tssS26KD489rhHnbQ" target="_blank" class="btn-link sp-btn">spotify</a>
+                    </div>
+                </div>
+
+                <h3>4SHOBOIZ MIXTAPE - LNGSHOT</h3>
+                <p class="rec-text">Ma boys knows whats good, and its their pre debut!! An album made to be played at full volume.
+                    A perfect mix of intensity and personality. My favorite song is Thinking!! Ryul the rapper you are..
+                </p>
+            </div>
+
+            <div class="rec-card album-card">
+                <div class="rec-header">
+                    <div class="rec-badge" style="background-color: #9333ea;">Album</div>
+
+                    <a href="https://www.youtube.com/watch?v=dLDn4evlk3Y&list=OLAK5uy_nzdfrky-GjRIjyOOnpwnqge7kyRj8Tk0M" target="_blank" class="btn-link yt-btn">youtube</a>
+                    <a href="https://open.spotify.com/album/67nhgkEfNwdqQt7QFYHw0B?si=krJknMwRR96khKkkVBz38g" target="_blank" class="btn-link sp-btn">spotify</a>
+                </div>
+
+                <h3>HARMONY: ALL IN - P1harmony</h3>
+                <p class="rec-text">Piwon proving once again why their discography never disappoints. they somehow makes
+                    every song sound effortlessly cool. dare i say its their best album?? Chaotic, confident, and impossible to ignor.
+                    My favorite song is Love Me For Me!!
+                </p>
+            </div>
+
+        </div>
+
+        <div class="rec-section-title" style="margin-top: 40px;">
+            <h2>groups/videos</h2>
+            <p>emotionally attached to these people</p>
+        </div>
+        <div class="rec-container">
+            <div class="rec-card video-card">
+                <div class="rec-badge" style="background-color: #ea580c;">video</div>
+                <h3>לשים סרטון/להקה</h3>
+                <p class="rec-text">תיאור שלי</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="infoBox"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

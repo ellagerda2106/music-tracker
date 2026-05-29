@@ -1,11 +1,11 @@
-// 1. אובייקט הנתונים של הלהקות
+// מידע על הלהקות
 const bands = {
     skz: {
         name: "Stray Kids",
         desc: "JYPE, founded in 2017",
         info: "8 members: Bang Chan, Lee Know, Changbin, Hyunjin, Han, Felix, Seungmin, I.N. Fandom: STAY.",
         img: "images/skz.jpg",
-        videoID: "6G242G07WfM"
+        videoID: "7m0vS792738"
     },
     p1h: {
         name: "P1Harmony",
@@ -59,36 +59,31 @@ const bands = {
     day6: {
         name: "DAY6",
         desc: "JYPE, founded in 2015",
-        info: "4 members: Sungjin, Young K, Wonpil, Dowoon. Fandom: MY DAY",
+        info: "4 members: Sungjin, Young K, Wonphil, Dowoon. Fandom: MY DAY",
         img: "images/day6.jpg",
         videoID: "x3sFsHrUyLQ"
     }
 };
 
-// 2. פונקציות המודאל (חלון המידע)
 function openInfo(bandKey) {
     const box = document.getElementById("infoBox");
-    const data = bands[bandKey]; //המידע של הלהקה שנלחצה
+    const data = bands[bandKey];
 
-    if (!box || !data) return; // רק בדיקה-אם הלהקה או הדיב לא נמצאו "אל תעשה כלום"
-
-    console.log("YouTube URL:", "https://www.youtube.com/embed/" + data.videoID);
+    if (!box || !data) return;
 
     box.innerHTML = ` 
     <div class="modal-content"> 
         <span class="close-btn" onclick="closeInfo()">&times;</span> 
         <h2>${data.name}</h2> 
-        
         <div class="video-container"> 
-            <iframe width="100%" height="215" /* מאפשר חלון בתוך חלון-במקרה הזה יוטיוב */
-               src="https://www.youtube-nocookie.com/embed/${data.videoID}" //אומר ליוטיוב להציג רק את הסרטון שנשמר בדאטה
+            <iframe width="100%" height="215" 
+               src="https://www.youtube-nocookie.com/embed/${data.videoID}" 
                 title="YouTube video player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
             </iframe>
         </div>
-
         <p><strong>${data.desc}</strong></p> 
         <p>${data.info}</p>
     </div>
@@ -100,71 +95,174 @@ function closeInfo() {
     const box = document.getElementById("infoBox");
     if (box) {
         box.innerHTML = "";
-        box.style.display = "none"; // מחביא את המודאל
+        box.style.display = "none";
     }
 }
 
-// 3. ניהול רשימת השירים
-
-function addSongToList(songName, artistName) {
-    const listElement = document.getElementById("songList");
-    if (!listElement) return;
-
-    const existingSongs = listElement.querySelectorAll("li"); //אוסף את כל השירים לרשימה אחת
-    for (let song of existingSongs) {
-        if (song.innerText.includes(songName) && song.innerText.includes(artistName)) { //בודק אם השיר נמצא
-            alert("this song is already on your list!");
-            return; // עוצר את הפונקציה ולא מוסיף
-        }
-    }
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-        ${songName} - ${artistName} 
-        <button onclick="removeSong(this)">delete</button>
-    `;
-    listElement.appendChild(li);
-    
-    saveSongs(); // שומר את הרשימה החדשה בזיכרון
-}
-
-function removeSong(buttonElement) {
-    buttonElement.parentElement.remove(); //פרנט זה הרשימה יעני השיר עצמו ואז מוחקים את כל השורה
-    saveSongs(); // מעדכן את השמירה אחרי המחיקה
-}
-
-function saveSongs() {
-    const listElement = document.getElementById("songList");
-    if (listElement) {
-        localStorage.setItem("mySongs", listElement.innerHTML); //שומר את המידע כ-HTML
-    }
-}
-
-// טוען את השירים מהזיכרון כשהדף עולה
-function loadSongs() {
-    const listElement = document.getElementById("songList");
-    const savedSongs = localStorage.getItem("mySongs");
-    if (listElement && savedSongs) {
-        listElement.innerHTML = savedSongs; // מחזיר את השירים השמורים למסך
-    }
-}
-
-// 4. הפעלת אירועים (Events) כשהדף נטען
+// הרשימה
 document.addEventListener("DOMContentLoaded", function() {
     loadSongs(); // טעינת השירים מהזיכרון מיד כשהאתר נפתח
 
+    // הגדרת כפתור הוספת שיר
     const addBtn = document.getElementById("addBtn");
     if (addBtn) {
-        addBtn.addEventListener("click", function () {
-            const songInput = document.getElementById("songName").value;
-            const artistInput = document.getElementById("artistName").value;
+        addBtn.onclick = function() {
+            const songInput = document.getElementById("songName");
+            const artistInput = document.getElementById("artistName");
             
-            if (songInput && artistInput) {
-                addSongToList(songInput, artistInput);
-                // מאפס את תיבות הקלט אחרי ההוספה
-                document.getElementById("songName").value = "";
-                document.getElementById("artistName").value = "";
+            const songValue = songInput.value.trim();
+            const artistValue = artistInput.value.trim();
+
+            if (songValue !== "" && artistValue !== "") {
+                
+                // בדיקת כפילות ברשימה
+                const existingSongs = document.querySelectorAll(".song-card");
+                let isDuplicate = false;
+
+                existingSongs.forEach(card => {
+                    const existingSongName = card.querySelector("strong").innerText;
+                    const existingArtistName = card.querySelector("span").innerText;
+                    
+                    if (existingSongName.toLowerCase() === songValue.toLowerCase() && 
+                        existingArtistName.toLowerCase() === artistValue.toLowerCase()) {
+                        isDuplicate = true;
+                    }
+                });
+
+                if (isDuplicate) {
+                    alert("The song '" + songValue + "' is already in your list!");
+                } else {
+                    addSongToList(songValue, artistValue);
+                    songInput.value = "";
+                    artistInput.value = "";
+                }
+
+            } else {
+                alert("Please fill in both fields!");
+            }
+        };
+    }
+
+    // הגדרת מערכת גרירה חכמה לקונטיינר של הרשימה
+    const listElement = document.getElementById("songList");
+    if (listElement) {
+        listElement.addEventListener('dragover', e => {
+            e.preventDefault();
+            const draggingItem = document.querySelector('.dragging');
+            if (!draggingItem) return;
+            
+            // מציאת השיר שהכי קרוב לעכבר כרגע כדי לדעת איפה למקם
+            const siblings = [...listElement.querySelectorAll('.song-card:not(.dragging)')];
+            const nextSibling = siblings.find(sibling => {
+                const box = sibling.getBoundingClientRect();
+                return e.clientY <= box.top + box.height / 2;
+            });
+            
+            // הזזת השיר למקום החדש ברשימה
+            if (nextSibling) {
+                listElement.insertBefore(draggingItem, nextSibling);
+            } else {
+                listElement.appendChild(draggingItem);
             }
         });
     }
 });
+
+// פונקציה ליצירת שיר חדש והוספתו לרשימה
+function addSongToList(songName, artistName) {
+    const listElement = document.getElementById("songList");
+    if (!listElement) return;
+
+    const searchQuery = `${songName} ${artistName}`.trim().replace(/\s+/g, "+");
+    const youtubeLink = `https://www.youtube.com/results?search_query=${searchQuery}`;
+
+    const li = document.createElement("li");
+    li.className = "song-card";
+    li.setAttribute("draggable", "true"); // מאפשר לגרור את האלמנט
+
+    li.innerHTML = `
+    <div class="song-info">
+        <strong>${songName}</strong>
+        <span>${artistName}</span>
+    </div>
+    <div class="song-actions">
+        <a href="${youtubeLink}" target="_blank" class="play-btn">Play</a>
+        <button onclick="removeSong(this)" class="delete-btn">Delete</button>
+    </div>
+    `;
+
+    // הוספת אירועי גרירה לשיר החדש
+    addDragEvents(li);
+
+    listElement.appendChild(li);
+    saveSongs(); 
+}
+
+// פונקציה המנהלת את שינוי העיצוב בזמן הגרירה
+function addDragEvents(item) {
+    item.addEventListener('dragstart', () => {
+        item.classList.add('dragging');
+    });
+
+    item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+        saveSongs(); // שמירת הסדר החדש בזיכרון של הדפדפן לאחר השחרור
+    });
+}
+
+// מחיקת שיר בודד
+function removeSong(buttonElement) {
+    const songCard = buttonElement.closest(".song-card");
+    if (songCard) {
+        songCard.remove();
+        saveSongs();
+    }
+}
+
+// מחיקת כל הרשימה בבת אחת
+function clearAllSongs() {
+    if (confirm("Are you sure you want to delete ALL songs?")) {
+        const listElement = document.getElementById("songList");
+        if (listElement) {
+            listElement.innerHTML = "";
+        }
+        localStorage.removeItem("mySongs");
+    }
+}
+
+// שמירת הרשימה הנוכחית בזיכרון המקומי
+function saveSongs() {
+    const listElement = document.getElementById("songList");
+    if (listElement) {
+        localStorage.setItem("mySongs", listElement.innerHTML);
+    }
+}
+
+// טעינת הרשימה מהזיכרון והפעלת מנגנון הגרירה עליהם מחדש
+function loadSongs() {
+    const listElement = document.getElementById("songList");
+    const savedSongs = localStorage.getItem("mySongs");
+    if (listElement && savedSongs) {
+        listElement.innerHTML = savedSongs;
+        
+        // מחזיר את תכונת הגרירה ואת האירועים לכל השירים שנטענו מהזיכרון
+        const items = listElement.querySelectorAll('.song-card');
+        items.forEach(item => {
+            item.setAttribute("draggable", "true");
+            addDragEvents(item);
+        });
+    }
+}
+
+//נאב בר
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+        page.style.display = 'none';
+    });
+
+    const activePage = document.getElementById(pageId);
+    if (activePage) {
+        activePage.style.display = 'block';
+    }
+}
