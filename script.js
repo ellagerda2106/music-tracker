@@ -67,11 +67,11 @@ const bands = {
 
 function openInfo(bandKey) {
     const box = document.getElementById("infoBox");
-    const data = bands[bandKey];
+    const data = bands[bandKey]; //פותח את הלהקה הספציפית בבאנדקי
 
-    if (!box || !data) return;
+    if (!box || !data) return; //בדיקה,אם אין קופסא או מידע לעצור שלא תהיה קריסה
 
-    box.innerHTML = ` 
+    box.innerHTML = `  
     <div class="modal-content"> 
         <span class="close-btn" onclick="closeInfo()">&times;</span> 
         <h2>${data.name}</h2> 
@@ -88,14 +88,14 @@ function openInfo(bandKey) {
         <p>${data.info}</p>
     </div>
     `;
-    box.style.display = "flex";
+    box.style.display = "flex"; //הופך את החלונית לנראית, ולא מוסתרת 
 }
 
 function closeInfo() {
     const box = document.getElementById("infoBox");
-    if (box) {
-        box.innerHTML = "";
-        box.style.display = "none";
+    if (box) { //בדיקת ביטחון שהקופסת מידע קיימת
+        box.innerHTML = ""; //מרוקן את כל התוכן שנמצא בחלונית
+        box.style.display = "none"; //מחביא את החלונית
     }
 }
 
@@ -110,21 +110,21 @@ document.addEventListener("DOMContentLoaded", function() {
             const songInput = document.getElementById("songName");
             const artistInput = document.getElementById("artistName");
             
-            const songValue = songInput.value.trim();
-            const artistValue = artistInput.value.trim();
+            const songValue = songInput.value.trim(); //מוריד רווחים מיותרים
+            const artistValue = artistInput.value.trim(); //גם זה
 
-            if (songValue !== "" && artistValue !== "") {
+            if (songValue !== "" && artistValue !== "") { //בדיקת ביטחון שיש שיר ואמן
                 
                 // בדיקת כפילות ברשימה
-                const existingSongs = document.querySelectorAll(".song-card");
+                const existingSongs = document.querySelectorAll(".song-card"); //אוסף את כל השירים שכבר קיימים ברשימה
                 let isDuplicate = false;
 
-                existingSongs.forEach(card => {
-                    const existingSongName = card.querySelector("strong").innerText;
-                    const existingArtistName = card.querySelector("span").innerText;
+                existingSongs.forEach(card => { //עובר על הרשימה אחד אחד
+                    const existingSongName = card.querySelector("strong").innerText;//שולפים את השם של השיר
+                    const existingArtistName = card.querySelector("span").innerText; //שולף את השם של האמן
                     
                     if (existingSongName.toLowerCase() === songValue.toLowerCase() && 
-                        existingArtistName.toLowerCase() === artistValue.toLowerCase()) {
+                        existingArtistName.toLowerCase() === artistValue.toLowerCase()) { //משווה בין השיר שקיים לשיר שהמשתמש הכניס עכשיו
                         isDuplicate = true;
                     }
                 });
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     alert("The song '" + songValue + "' is already in your list!");
                 } else {
                     addSongToList(songValue, artistValue);
-                    songInput.value = "";
+                    songInput.value = ""; //מאפס את התיבות אינפוט שיהיו ריקות
                     artistInput.value = "";
                 }
 
@@ -146,19 +146,19 @@ document.addEventListener("DOMContentLoaded", function() {
     // הגדרת מערכת גרירה חכמה לקונטיינר של הרשימה
     const listElement = document.getElementById("songList");
     if (listElement) {
-        listElement.addEventListener('dragover', e => {
-            e.preventDefault();
+        listElement.addEventListener('dragover', e => { //מאזין לרגע שמזיזים כרטיסייה
+            e.preventDefault(); //מבטל חסימה ומאפשר שחרור
             const draggingItem = document.querySelector('.dragging');
             if (!draggingItem) return;
             
             // מציאת השיר שהכי קרוב לעכבר כרגע כדי לדעת איפה למקם
-            const siblings = [...listElement.querySelectorAll('.song-card:not(.dragging)')];
-            const nextSibling = siblings.find(sibling => {
-                const box = sibling.getBoundingClientRect();
+            const siblings = [...listElement.querySelectorAll('.song-card:not(.dragging)')];///לוקח א כל השירין חוץ ממה שגוררים (שכנים)
+            const nextSibling = siblings.find(sibling => { //מחפש את השיר שהעכבר נמצא מעליו
+                const box = sibling.getBoundingClientRect(); //החישוב המתמטי
                 return e.clientY <= box.top + box.height / 2;
             });
             
-            // הזזת השיר למקום החדש ברשימה
+            // ההזזה עצמה
             if (nextSibling) {
                 listElement.insertBefore(draggingItem, nextSibling);
             } else {
@@ -168,18 +168,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// פונקציה ליצירת שיר חדש והוספתו לרשימה
+// פונקציה ליצירת שיר חדש והוספה לרשימה
 function addSongToList(songName, artistName) {
     const listElement = document.getElementById("songList");
-    if (!listElement) return;
+    if (!listElement) return; //בדיקת בטיחות
 
-    const searchQuery = `${songName} ${artistName}`.trim().replace(/\s+/g, "+");
-    const youtubeLink = `https://www.youtube.com/results?search_query=${searchQuery}`;
+    const searchQuery = `${songName} ${artistName}`.trim().replace(/\s+/g, "+"); //בונה את הקישור ליוטיוב
+    const youtubeLink = `https://www.youtube.com/results?search_query=${searchQuery}`;//השלמה ליוטיוב
 
-    const li = document.createElement("li");
+    const li = document.createElement("li"); //מייצר בזיכרון של הדפדפן פריט ברשימה
     li.className = "song-card";
     li.setAttribute("draggable", "true"); // מאפשר לגרור את האלמנט
 
+    //בונה את המבנה של הכרטיסייה
     li.innerHTML = `
     <div class="song-info">
         <strong>${songName}</strong>
@@ -194,24 +195,26 @@ function addSongToList(songName, artistName) {
     // הוספת אירועי גרירה לשיר החדש
     addDragEvents(li);
 
+    //מדביק בתוך הרשימה כך שהמשתמש יוכל לראות
     listElement.appendChild(li);
-    saveSongs(); 
+    saveSongs(); //נשמר בזיכרון של הדפדפן
 }
 
-// פונקציה המנהלת את שינוי העיצוב בזמן הגרירה
+//מנהל את השינוי בעיצוב כשהשיר נגרר
 function addDragEvents(item) {
     item.addEventListener('dragstart', () => {
-        item.classList.add('dragging');
+        item.classList.add('dragging'); //מוסיף לשיר שנגרר את העיצוב מהססס
     });
 
     item.addEventListener('dragend', () => {
         item.classList.remove('dragging');
-        saveSongs(); // שמירת הסדר החדש בזיכרון של הדפדפן לאחר השחרור
+        saveSongs(); //שומר בזיכרון של הדפדפן
     });
 }
 
-// מחיקת שיר בודד
+// מחיקת שיר 
 function removeSong(buttonElement) {
+    //מחפש את האלמנט שכולל את כל הכרטיסייה
     const songCard = buttonElement.closest(".song-card");
     if (songCard) {
         songCard.remove();
@@ -230,7 +233,7 @@ function clearAllSongs() {
     }
 }
 
-// שמירת הרשימה הנוכחית בזיכרון המקומי
+//שמירה בזיכרון של הדפדפן
 function saveSongs() {
     const listElement = document.getElementById("songList");
     if (listElement) {
@@ -238,7 +241,6 @@ function saveSongs() {
     }
 }
 
-// טעינת הרשימה מהזיכרון והפעלת מנגנון הגרירה עליהם מחדש
 function loadSongs() {
     const listElement = document.getElementById("songList");
     const savedSongs = localStorage.getItem("mySongs");
@@ -258,11 +260,42 @@ function loadSongs() {
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
     pages.forEach(page => {
-        page.style.display = 'none';
+        page.style.display = 'none'; //מסתיר את כל העמודים
     });
 
-    const activePage = document.getElementById(pageId);
+    const activePage = document.getElementById(pageId);//מחפש את העמוד שפעיל באותו רגע
     if (activePage) {
-        activePage.style.display = 'block';
+        activePage.style.display = 'block';//העמוד קופץ שהמשתמש יוכל לראות אותו
     }
 }
+
+// פונקציה
+function loadExactFeaturedItems() {
+    //אוסף את כל הכרטיסיות המלצה
+    const recCards = document.querySelectorAll('#recommendations-page .rec-card');
+    //מוצא את הקופסא הריקה בדף הבית
+    const recTarget = document.querySelector('#random-rec-container .dynamic-target');
+    
+    if (recCards.length > 0 && recTarget) {
+        //מספר בין 0-1 כפול כמות הכרטיסיות, מעגל למטה
+        const randomIndex = Math.floor(Math.random() * recCards.length);
+      // מעתיק את כל הכרטיסייה כל כולה
+        recTarget.innerHTML = recCards[randomIndex].outerHTML;
+    }
+
+    //אוסף את כל כרטיסיות הקאמבקים
+    const comebackCards = document.querySelectorAll('#comebacks-page .comeback-card');
+    //מוצא את הקופסא הריקה של הקאמבקים בדף הבית
+    const comebackTarget = document.querySelector('#random-comeback-container .dynamic-target');
+    
+    if (comebackCards.length > 0 && comebackTarget) {
+        //חישוב
+        const randomIndex = Math.floor(Math.random() * comebackCards.length);
+        //מעתיק את כל הכרטיסייה ולא רק הטקסט
+        comebackTarget.innerHTML = comebackCards[randomIndex].outerHTML;
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => { //מחכה שהאתר ייבנה
+    setTimeout(loadExactFeaturedItems, 300); // מחכה 300 מילי שניות לראנדום כדי למנוע באגים
+});

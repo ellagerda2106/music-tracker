@@ -53,7 +53,7 @@ body {
 }
 
 h2 {
-    color: white;
+    color: #ff4d88;
     margin-top: 20px;
 }
 
@@ -117,6 +117,10 @@ input {
     font-size: 24px;
     cursor: pointer;
     color: #333;
+}
+
+h1 {
+    color: #ff4d88;
 }
 
 .card img {
@@ -448,7 +452,7 @@ input {
     border-top-color: #9333ea; 
 }
 
-.video-card {
+.group-card {
      border-top-color: #ea580c; 
     }
 
@@ -491,4 +495,126 @@ input {
 
 .rec-card .rec-badge {
     margin-bottom: 0;
+}
+
+/* --- עיצוב דף הבית המעודכן והמשופר --- */
+
+.home-layout-wrapper {
+    display: flex;
+    min-height: calc(100vh - 60px);
+    position: relative;
+}
+
+/* 1. תיקון הבר האנכי של האודות */
+.about-sidebar-strip {
+    background-color: #ff4d88;
+    color: white;
+    width: 240px; /* הגדלנו טיפה שיהיה מקום לטקסט */
+    padding: 60px 25px 40px 25px; /* הוספנו מרווח מלמעלה (60px) כדי שהטקסט לא יהיה צמוד לקצה */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: right; /* יישור לימין לעברית */
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+}
+
+.about-sidebar-strip h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    text-align: right; /* פותר את הבעיה שהכותרת ברחה שמאלה! */
+}
+
+.about-sidebar-strip p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* 2. אזור התוכן מימין לפס */
+.home-content-area {
+    flex: 1;
+    padding: 30px 40px; /* הקטנו את המרווח העליון כדי להרים את הכל */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* דוחף את התוכן להתחיל מלמעלה */
+}
+
+/* 3. תיקון צבעי הניגודיות של הכותרת (Hero) */
+.home-content-area .hero {
+    text-align: center;
+    margin-bottom: 20px; /* צמצום המרחק הריק בין הכותרת לכרטיסיות */
+}
+
+.home-content-area .hero h1 {
+    color: #ff4d88; /* שינוי לוורוד הכהה והבולט במקום לבן */
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* צל עדין מאוד לעומק */
+}
+
+.home-content-area .hero p {
+    color: #444; /* שינוי לאפור כהה קריא במקום לבן-ורדרד */
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* 4. שורת הכרטיסיות - הרמה למעלה וסידור */
+.home-cards-row {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start; /* מיישר את שתיהן לקו עליון אחיד */
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px; /* הקטנו מ-40px כדי להרים אותן קרוב יותר לכותרת */
+    flex-wrap: wrap;
+}
+
+/* 5. תיקון איזון וסימטריה של הכרטיסיות */
+.home-card-container {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* מכריח את שתי הקופסאות להיות בדיוק באותו הגודל */
+    width: 300px; 
+    min-height: 380px; 
+}
+
+/* אפקט הריחוף שמרים את הכרטיסייה */
+.home-card-container:hover {
+    transform: translateY(-8px);
+}
+
+/* תגית הכותרת הקטנה מעל */
+.home-panel-tag {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+/* דואג שהכרטיסיות שבפנים יתפרסו על כל הגובה והרוחב של המיכל שלהן */
+.dynamic-target, 
+.dynamic-target .rec-card, 
+.dynamic-target .comeback-card {
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box;
+}
+
+/* תיקון קטן לתמונה של הקאמבק בדף הבית כדי שלא תתעוות */
+.dynamic-target .comeback-card img {
+    height: 180px !important;
+    object-fit: cover;
 }
